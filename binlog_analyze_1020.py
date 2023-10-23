@@ -10,16 +10,18 @@ import re
 import time
 import subprocess
 
-# if len(sys.argv) != 2:
-#     print("Usage: python script_name.py binlog_filename")
-#     sys.exit(1)
-# binlog_name = sys.argv[1] # 你的binlog文件名
-# if not os.path.isfile(binlog_name):
-#     print("File '%s' does not exist." % binlog_name)
-#     sys.exit(1)
-# output_log_name = binlog_name + '.log'  # 输出日志文件名
-binlog_name = '/root/scripts/binlog.000042' # 你的binlog文件名
-output_log_name = '/root/scripts/binlog.000042.log'
+if len(sys.argv) != 2:
+    print("Usage: python script_name.py binlog_filename")
+    sys.exit(1)
+binlog_name = sys.argv[1] # binlog文件路径
+if not os.path.isfile(binlog_name):
+    print("File '%s' does not exist." % binlog_name)
+    sys.exit(1)
+binlog_filename = os.path.basename(binlog_name) # binlog文件名称
+output_log_name = os.path.join(binlog_filename + '.log') # 输出日志文件名
+
+# binlog_name = '/root/scripts/binlog.000042' # 你的binlog文件名
+# output_log_name = '/root/scripts/binlog.000042.log'
 
 # 执行mysqlbinlog命令并将输出重定向到日志文件
 print("Begin decoding the binlog file")
